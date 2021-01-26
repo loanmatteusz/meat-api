@@ -8,8 +8,8 @@ class ReviewRouter extends ModelRouter<Review> {
     super(Review);
   }
 
-  envelop(document) {
-    let resource = super.envelop(document);
+  envelope(document) {
+    let resource = super.envelope(document);
     const restaurant_id = document.restaurant._id ? document.restaurant._id : document.restaurant;
     resource._links.restaurant = `/restaurants/${restaurant_id}`;
     return resource;

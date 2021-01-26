@@ -5,11 +5,11 @@ import { NotFoundError } from 'restify-errors';
 export abstract class Router extends EventEmitter {
   abstract applyRoutes(application: restify.Server)
 
-  envelop(document: any): any {
+  envelope(document: any): any {
     return document;
   }
 
-  envelopAll(documents: any[]): any {
+  envelopeAll(documents: any[], options: any = {}): any {
     return documents;
   }
 
@@ -17,7 +17,7 @@ export abstract class Router extends EventEmitter {
     return (document: any) => {
       if (document) {
         this.emit('beforeRender', document);
-        res.json(this.envelop(document));
+        res.json(this.envelope(document));
       }
       else {
         throw new NotFoundError('Document not found');
@@ -27,17 +27,17 @@ export abstract class Router extends EventEmitter {
     }
   }
 
-  renderAll(res: restify.Response, next: restify.Next) {
+  renderAll(res: restify.Response, next: restify.Next, options: any = {}) {
     return (documents: any[]) => {
       if (documents) {
         documents.forEach((document, index, array) => {
           this.emit('beforeRender', document);
-          array[index] = this.envelop(document);
+          array[index] = this.envelope(document);
         });
-        res.json(this.envelopAll(documents));
+        res.json(this.envelopeAll(documents, options));
       }
       else {
-        res.json(this.envelopAll([]));
+        res.json(this.envelopeAll([], options));
       }
 
       return next();
