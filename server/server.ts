@@ -47,4 +47,10 @@ export class Server {
   bootstrap(routers: Router[] = []): Promise<Server> {
     return this.inicializeDB().then(() => this.initRoutes(routers).then(() => this));
   }
+
+  shutdown() {
+    return mongoose.disconnect()
+      .then(() => this.application.close())
+      .catch(console.error);
+  }
 }
