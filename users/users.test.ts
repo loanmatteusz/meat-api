@@ -51,6 +51,15 @@ test('post /users', () => {
 
 test('get /users/aaaaa - not found', () => {
   return request(adress)
+    .get('/users/aaaaa')
+    .then(response => {
+      expect(response.status).toBe(404);
+    })
+    .catch(fail);
+});
+
+test('patch /users/:id', () => {
+  return request(adress)
     .post('/users')
     .send({
       name: 'user02',
@@ -72,12 +81,6 @@ test('get /users/aaaaa - not found', () => {
       expect(response.body.password).toBeUndefined();
     })
     .catch(fail);
-});
-
-test('path /users/:id', () => {
-  return request(adress)
-    .post('/users')
-    .then()
 });
 
 afterAll(() => {
