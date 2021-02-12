@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "ts-node jest.startup.ts",
     "dev": "nodemon main.ts"
   },
   "keywords": [],
