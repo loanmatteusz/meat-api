@@ -1,7 +1,7 @@
 import 'jest';
 import * as request from 'supertest';
 
-let adress: string = `http://localhost:3001`;
+let adress: string = (<any>global).adress;
 
 test('get /users', () => {
   return request(adress)
