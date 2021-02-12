@@ -23,7 +23,7 @@ export abstract class Router extends EventEmitter {
         throw new NotFoundError('Document not found');
       }
 
-      return next();
+      return next(false);
     }
   }
 
